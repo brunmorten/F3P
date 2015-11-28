@@ -13,7 +13,11 @@ var users = require('./routes/users');
 var app = express();
 
 app.use(stormpath.init(app, {
-  website: true
+  apiKeyId:     process.env.STORMPATH_API_KEY_ID,
+  apiKeySecret: process.env.STORMPATH_API_KEY_SECRET,
+  secretKey:    process.env.STORMPATH_SECRET_KEY,
+  application:  process.env.STORMPATH_URL,
+  website:      true,
 }));
 
 // view engine setup
