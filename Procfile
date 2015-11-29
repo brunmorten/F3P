@@ -1,1 +1,1 @@
-web: nodemon --debug=5858 --nolazy bin/www
+web: node bin/www

@@ -83,7 +83,7 @@ Create a Procfile and add the startup code to it:
 web: node bin/www
 ```
 
-For debuggin change the Profile to this:
+For debuggin add a Profile.local with the following startup code:
 ```sh
 web: node --debug=5858 --nolazy bin/www
 ```
@@ -91,7 +91,7 @@ web: node --debug=5858 --nolazy bin/www
 Start the local server
 
 ```sh
-$ heroku local
+$ heroku local -f Procfile.local
 ```
 
 Your app should now be running on [localhost:5000](http://localhost:5000/).
