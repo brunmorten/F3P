@@ -2,6 +2,8 @@
 
 ## Initial setup
 
+Make sure you have [Node.js](http://nodejs.org/) and the [Heroku Toolbelt](https://toolbelt.heroku.com/) installed.
+
 ### Git setup  
 Install [Git](http://git-scm.com/download/win)  
 Make sure to install the git bash.  
@@ -12,7 +14,6 @@ Make sure to install the git bash.
 $ npm install express-generator -g
 $ express F3P
 $ cd F3P
-$ npm install
 ```
 
 Create a .gitignore file and add this to it:
@@ -37,18 +38,14 @@ Note: Heroku does currently not work in git bash shell on windows, so use cmd
 
 ```sh
 $ heroku login
-$ cd F3P
 $ heroku create f3p
 $ git push heroku master
 ```
 
 ## Running Locally
 
-Make sure you have [Node.js](http://nodejs.org/) and the [Heroku Toolbelt](https://toolbelt.heroku.com/) installed.
-
 ```sh
 $ heroku local
-
 ```
 
 Your app should now be running on [localhost:5000](http://localhost:5000/).
