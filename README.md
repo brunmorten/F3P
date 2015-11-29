@@ -83,6 +83,10 @@ Create a Procfile and add the startup code to it:
 web: node bin/www
 ```
 
+For debuggin change the Profile to this:
+```sh
+web: node --debug-brk=5858 --nolazy bin/www
+```
 
 Start the local server
 
