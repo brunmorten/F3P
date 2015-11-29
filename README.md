@@ -14,6 +14,13 @@ Make sure to install the git bash.
 $ npm install express-generator -g
 $ express F3P
 $ cd F3P
+$ npm install mongoose --save
+```
+
+Add mongoose  
+
+```sh
+$ npm install mongoose --save
 ```
 
 Create a .gitignore file and add this to it:
