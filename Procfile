@@ -1,1 +1,1 @@
-web: node --debug-brk=5858 --nolazy bin/www
+web: node --debug=5858 --nolazy bin/www

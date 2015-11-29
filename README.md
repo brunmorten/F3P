@@ -85,7 +85,7 @@ web: node bin/www
 
 For debuggin change the Profile to this:
 ```sh
-web: node --debug-brk=5858 --nolazy bin/www
+web: node --debug=5858 --nolazy bin/www
 ```
 
 Start the local server
