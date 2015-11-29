@@ -1,30 +1,71 @@
-# node-js-getting-started
+# F3P competition program
 
-A barebones Node.js app using [Express 4](http://expressjs.com/).
+## Initial setup
 
-This application supports the [Getting Started with Node on Heroku](https://devcenter.heroku.com/articles/getting-started-with-nodejs) article - check it out.
+### Git setup  
+Install [Git](http://git-scm.com/download/win)  
+Make sure to install the git bash.  
 
-[![Deploy to Heroku](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
+### Express setup
+
+```sh
+$ npm install express-generator -g
+$ express F3P
+$ cd F3P
+$ npm install
+```
+
+Create a .gitignore file and add this to it:
+
+```sh
+node_modules
+.env
+Dockerfile
+docker-compose.yml
+```
+
+Initialize git and commit the initial app
+
+```sh
+$ git init
+$ git add .
+$ git commit -am "Initial commit"
+```
+
+### Heroku setup
+Note: Heroku does currently not work in git bash shell on windows, so use cmd
+
+```sh
+$ heroku login
+$ cd F3P
+$ heroku create f3p
+$ git push heroku master
+```
 
 ## Running Locally
 
 Make sure you have [Node.js](http://nodejs.org/) and the [Heroku Toolbelt](https://toolbelt.heroku.com/) installed.
 
 ```sh
-$ git clone git@github.com:heroku/node-js-getting-started.git # or clone your own fork
-$ cd node-js-getting-started
-$ npm install
-$ npm start
+$ heroku local
+
 ```
 
 Your app should now be running on [localhost:5000](http://localhost:5000/).
 
-## Deploying to Heroku
+## Running latest changes on Heroku
 
-```
-$ heroku create
+```sh
+$ git add .
+$ git commit -am "My comment here"
 $ git push heroku master
 $ heroku open
+```
+
+## Checking logs
+
+```sh
+$ heroku logs
 ```
 
 ## Documentation
