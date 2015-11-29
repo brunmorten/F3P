@@ -111,6 +111,10 @@ $ heroku open
 $ heroku logs
 ```
 
+## Visual Studio Code tips
+
+For markdown file, use `Ctrl + Shit + v` to change from code to preview
+
 ## Documentation
 
 For more information about using Node.js on Heroku, see these Dev Center articles:
