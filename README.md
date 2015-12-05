@@ -113,7 +113,8 @@ $ heroku logs
 
 ## Visual Studio Code tips
 
-For markdown file, use `Ctrl + Shit + v` to change from code to preview
+For markdown file, use `Ctrl + Shit + v` to change from code to preview  
+Run VS Code with administator rights, otherwise the debugger does not work!
 
 ## Documentation
 
