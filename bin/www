@@ -8,7 +8,7 @@ var app = require('../app');
 var debug = require('debug')('F3P:server');
 var http = require('http');
 
-app.on('stormpath.ready', function () {
+//app.on('stormpath.ready', function () {
   /**
   * Get port from environment and store in Express.
   */
@@ -89,4 +89,4 @@ app.on('stormpath.ready', function () {
     debug('Listening on ' + bind);
   }
 
-});
+//});
