@@ -9,17 +9,29 @@ block content
         legend Enter your competition info
         p
           label 
-            | Name
+            | Name: 
             input(type='text', name='name', placeholder='Enter competition name', required)
         p
           label 
-            | Club
+            | Club: 
             input(type='text', name='club', placeholder='Enter club name')
         p
           label 
-            | Description
+            | Description: 
             input(type='textbox', name='description', placeholder='Enter competition description')
-      input(type="submit", value="Save")
+        p
+        input(type="submit", value="Save")
     br
-    - for competition in competitions
-      p= competition.name
+    
+    ul.nav
+      each menu in ["Home", "Logout"]
+        if menu == "Home"
+          li
+            a(href="/")= menu
+        else
+          li
+            a(href="/#{menu}")= menu
+            
+    h2 Debug info
+      for competition in competitions
+        p= competition.name
