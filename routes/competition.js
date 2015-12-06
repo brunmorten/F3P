@@ -1,23 +1,23 @@
 var express = require('express');
 var mongoose = require('mongoose');
-var Comment = mongoose.model('comments');
+var Competition = mongoose.model('competition');
 var router = express.Router();
 
 /* GET page. */
 router.get('/', function (req, res) {
-  Comment.find(function (err, comments) {
+  Competition.find(function (err, competitions) {
     res.render(
       'competition',
-      { title: 'Competition', comments: comments }
+      { name: 'Competition', competitions: competitions }
       );
   });
 });
 
-/* POST competition comment. */
+/* POST competition. */
 router.post('/', function (req, res) {
-  new Comment({ title: req.body.comment })
-    .save(function (err, comment) {
-      console.log(comment)
+  new Competition({ name: req.body.name })
+    .save(function (err, competition) {
+      console.log(competition)
       res.redirect('/competition');
     });
 });

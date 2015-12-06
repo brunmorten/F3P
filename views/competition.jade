@@ -5,9 +5,9 @@ block content
   block content
     h1= title
     form(method="post" action="/competition/create")
-      label(for="comment") Got something to say:
-      input(type="text", name="comment", value=comment)
+      label(for="competition") Competition name:
+      input(type="text", name="name", value=name)
       input(type="submit", value="Save")
     br
-    - for comment in comments
-      p= comment.title
+    - for competition in competitions
+      p= competition.name
