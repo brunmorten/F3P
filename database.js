@@ -59,7 +59,7 @@ mongoose.model('planeinfo', PlaneInfo);
 mongoose.model('flyingclass', FlyingClass);
 mongoose.model('pilotinfo', PilotInfo);
 mongoose.model('competitionclass', CompetitionClass);
-mongoose.model('competition', FlyingSchedule);
+mongoose.model('competition', Competition);
 
 var uristring = process.env.MONGOLAB_URI;
 

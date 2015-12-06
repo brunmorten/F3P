@@ -1,9 +1,16 @@
 var express = require('express');
+var stormpath = require('express-stormpath');
 var router = express.Router();
 
+var mongoose = require('mongoose');
+
+var Competition = mongoose.model('competition');
+
 /* GET home page. */
-router.get('/', function (req, res, next) {
-  res.render('index', { title: 'Express' });
+router.get('/', stormpath.loginRequired, function (req, res, next) {
+  Competition.find({ 'director': req.user.username }, function (err, competitions) {
+    res.render('index', { title: 'Express', competitions: competitions });
+  });
 });
 
 module.exports = router;

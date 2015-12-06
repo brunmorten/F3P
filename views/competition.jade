@@ -4,9 +4,21 @@ block content
   //- passed into layout.jade when form.jade is rendered
   block content
     h1= title
-    form(method="post" action="/competition/create")
-      label(for="competition") Competition name:
-      input(type="text", name="name", value=name)
+    form(method="post" action="/competition/create" novalidate)
+      fieldset
+        legend Enter your competition info
+        p
+          label 
+            | Name
+            input(type='text', name='name', placeholder='Enter competition name', required)
+        p
+          label 
+            | Club
+            input(type='text', name='club', placeholder='Enter club name')
+        p
+          label 
+            | Description
+            input(type='textbox', name='description', placeholder='Enter competition description')
       input(type="submit", value="Save")
     br
     - for competition in competitions
