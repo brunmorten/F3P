@@ -20,15 +20,6 @@ block content
     p
       input(type="submit", value="Save")
   br
-  
-  ul.nav
-    each menu in ["Home", "Logout"]
-      if menu == "Home"
-        li
-          a(href="/")= menu
-      else
-        li
-          a(href="/#{menu}")= menu
                     
   h2 Debug info
   for competition in competitions

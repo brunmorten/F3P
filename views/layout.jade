@@ -1,3 +1,30 @@
-extends ../node_modules/jade-bootstrap/_bootstrap
-block body
-    block content
+include mixins
+
+doctype
+html( lang="en" )
+  head
+    title F3P competition
+    meta( charset='utf-8' )
+    meta( http-equiv='X-UA-Compatible', content='IE=edge' )
+    meta( name='viewport', content='width=device-width, initial-scale=1.0' )
+    meta( name='description', content='F3P competition' )
+    //- Bootswatch Theme
+    +bootswatch("superhero")
+
+  body(style="padding-bottom:10rem;")
+    script( src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js' )
+    script( src='../bootstrap/dist/js/bootstrap.min.js' )
+    .container
+      +nav("F3P", "dropdown_menu")
+        +nav_item( "/", activePage, "Index" ) Home
+        +nav_item( "competition", activePage, "Competition" ) Competition
+        +nav_item_dropdown( "#" )( label="Dropdown")
+          +nav_item( "#" ) Action
+          +nav_item( "#" ) Another action
+          +nav_item( "#" ) Something else here
+          +nav_divider
+          +nav_header Nav header
+          +nav_item( "#" ) Separated link
+          +nav_item( "#" ) One more separated link
+      .jumbotron
+        block content

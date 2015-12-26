@@ -7,10 +7,7 @@ var router = express.Router();
 /* GET page. */
 router.get('/', stormpath.loginRequired, function (req, res) {
   Competition.find(function (err, competitions) {
-    res.render(
-      'competition',
-      { name: 'Competition', competitions: competitions }
-      );
+    res.render('competition', { activePage: 'Competition', competitions: competitions });
   });
 });
 
