@@ -2,4 +2,5 @@ extends layout
 
 block content
   - for competition in competitions
-      p= competition.name
+    p
+      a(href=competition.url) #{competition.name}

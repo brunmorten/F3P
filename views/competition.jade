@@ -8,19 +8,15 @@ block content
     p
       label 
       | Name: 
-      input(type='text', name='name', placeholder='Enter competition name', required)
+      input(type='text', name='name', value=competition.name, placeholder='Enter competition name', required)
     p
       label 
       | Club: 
-      input(type='text', name='club', placeholder='Enter club name')
+      input(type='text', name='club', value=competition.club, placeholder='Enter club name')
     p
       label 
       | Description: 
-      input(type='textbox', name='description', placeholder='Enter competition description')
+      input(type='textbox', name='description', value=competition.description, placeholder='Enter competition description')
     p
       input(type="submit", value="Save")
   br
-                    
-  h2 Debug info
-  for competition in competitions
-    p= competition.name

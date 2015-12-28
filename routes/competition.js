@@ -6,8 +6,13 @@ var router = express.Router();
 
 /* GET page. */
 router.get('/', stormpath.loginRequired, function (req, res) {
-  Competition.find(function (err, competitions) {
-    res.render('competition', { activePage: 'Competition', competitions: competitions });
+  res.render('competition', { activePage: 'Competition', competition: {} });
+});
+
+/* GET page. */
+router.get('/:id', stormpath.loginRequired, function (req, res) {
+  Competition.findOne({ '_id' : req.params.id }, function (err, competition) {
+    res.render('competition', { activePage: 'Competition', competition: competition });
   });
 });
 
@@ -25,10 +30,11 @@ router.post('/', stormpath.loginRequired, function (req, res) {
     description: req.body.description,
     club: req.body.club,
     director: req.user.username,
+    competition_classes: [ {} ]
   });
 
   newCompetition.save(function (err, competition) {
-    console.log(competition)
+    //console.log(competition);
     res.redirect('/competition');
   });
 });
