@@ -1,7 +1,6 @@
 extends layout
 
 block content
-  ul#Competitions
+  div(class="list-group")
     - for competition in competitions
-      li
-        a(href=competition.url) #{competition.name}
+      a(href=competition.url class="list-group-item") #{competition.name}

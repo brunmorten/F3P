@@ -2,26 +2,20 @@ extends layout
 
 block content
   h1= title
-  form(method="post" action=saveAction novalidate)
+  form(method="post" action=saveAction novalidate role="form")
     fieldset
     legend Enter your competition info
-    p
-      label 
-      | Name: 
-      input(type='text', name='name', value=competition.name, placeholder='Enter competition name', required)
-    p
-      label 
-      | Club: 
-      input(type='text', name='club', value=competition.club, placeholder='Enter club name')
-    p
-      label 
-      | Description: 
-      input(type='textbox', name='description', value=competition.description, placeholder='Enter competition description')
-    p
-      input(type="submit", value="Save")
+    div(class="form-group")
+      label(for="name") Name:
+      input(type='text' class="form-control" id="name" name="name" value=competition.name placeholder="Enter competition name" required)
+    div(class="form-group")
+      label(for="club") Club:
+      input(type='text' class="form-control" id="club" name="club" value=competition.club placeholder="Enter club name" required)
+    div(class="form-group")
+      label(for="description") Description:
+      input(type='textbox' class="form-control" id="description" name="description" value=competition.description placeholder="Enter competition description" required)
+    input(type="submit" value="Save" class="btn btn-default")
 
   - if (!isNew)
-    form(method="post" action=deleteAction novalidate)
-      p
-        input(type="submit", value="Delete")
-  br
+    form(method="post" action=deleteAction novalidate role="form")
+      input(type="submit" value="Delete" class="btn btn-default")
