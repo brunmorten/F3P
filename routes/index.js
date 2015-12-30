@@ -9,11 +9,10 @@ var Competition = mongoose.model('competition');
 /* GET home page. */
 router.get('/', stormpath.loginRequired, function (req, res, next) {
   Competition.find({ 'director': req.user.username }, function (err, competitions) {
-    
-    var competitionInfos = [];
-    competitions.forEach(function(element) {
-      competitionInfos.push({ url: "competition/create/" + element._id, name: element.name });
-    }, this);
+        
+    var competitionInfos = competitions.map(function(element) {
+      return { url: "competition/" + element._id, name: element.name };
+    });
     
     res.render('index', { activePage: 'Index', competitions: competitionInfos });
   });

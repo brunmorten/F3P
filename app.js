@@ -14,6 +14,9 @@ var competition = require('./routes/competition');
 // Create the Express app
 var app = express();
 
+var methodOverride = require('method-override')
+app.use(methodOverride('_method'));
+
 // Initialize Stormpath
 app.use(stormpath.init(app, {
   apiKeyId: process.env.STORMPATH_API_KEY_ID,
@@ -36,8 +39,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
-app.use('/competition', competition);
-app.use('/competition/create', competition);
+app.use('/competition/', competition);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

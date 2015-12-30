@@ -1,6 +1,7 @@
 extends layout
 
 block content
-  - for competition in competitions
-    p
-      a(href=competition.url) #{competition.name}
+  ul#Competitions
+    - for competition in competitions
+      li
+        a(href=competition.url) #{competition.name}

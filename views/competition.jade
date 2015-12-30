@@ -2,7 +2,7 @@ extends layout
 
 block content
   h1= title
-  form(method="post" action="/competition/create" novalidate)
+  form(method="post" action=saveAction novalidate)
     fieldset
     legend Enter your competition info
     p
@@ -19,4 +19,9 @@ block content
       input(type='textbox', name='description', value=competition.description, placeholder='Enter competition description')
     p
       input(type="submit", value="Save")
+
+  - if (!isNew)
+    form(method="post" action=deleteAction novalidate)
+      p
+        input(type="submit", value="Delete")
   br
