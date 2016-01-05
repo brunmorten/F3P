@@ -2,9 +2,9 @@ extends layout
 
 block content
   h1= title
-  form(method="post" action=saveAction novalidate role="form")
+  form(method="post" novalidate role="form")
     fieldset
-    legend Enter your competition info
+    legend Enter competition info
     div(class="form-group")
       label(for="name") Name:
       input(type='text' class="form-control" id="name" name="name" value=competition.name placeholder="Enter competition name" required)
@@ -14,8 +14,11 @@ block content
     div(class="form-group")
       label(for="description") Description:
       input(type='textbox' class="form-control" id="description" name="description" value=competition.description placeholder="Enter competition description" required)
-    input(type="submit" value="Save" class="btn btn-default")
-
-  - if (!isNew)
-    form(method="post" action=deleteAction novalidate role="form")
-      input(type="submit" value="Delete" class="btn btn-default")
+    div(class="row")
+    - if (!isNew)
+      div(class="col-sm-6")
+        button(type="submit" class="btn btn-default" formaction=deleteAction style="font-size:17px;")
+          span.glyphicon.glyphicon-remove-circle  Delete
+    div(class="col-sm-6")
+      button(type="submit" class="btn btn-primary" formaction=saveAction style="font-size:17px;")
+        span.glyphicon.glyphicon-ok-circle  Save

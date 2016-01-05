@@ -15,7 +15,7 @@ function renderCompetition(res, competition) {
   
   var action = isNew ? "/competition" : "/competition/" + competition.id;
   var deleteAction = action + "?_method=DELETE";
-  var saveAction = isNew ? action + "?_method=POST" : action + "?_method=POST";
+  var saveAction = isNew ? action + "?_method=POST" : action + "?_method=PUT";
     
   res.render("competition", { activePage: 'Competition', competition: competition, deleteAction: deleteAction, saveAction: saveAction, isNew: isNew });
 }
@@ -66,7 +66,7 @@ router.put("/:id", stormpath.loginRequired, function(req, res) {
         return res.end("No such competition");
       }
       
-      renderCompetition(res, competition);
+      res.redirect('/');
     });
   });
 });
@@ -84,7 +84,7 @@ router.delete("/:id", stormpath.loginRequired, function(req, res) {
       return res.end('No such competition');
     }
     
-    renderCompetition(res, null);
+    res.redirect('/');
   });
 });
 
@@ -106,7 +106,7 @@ router.post('/', stormpath.loginRequired, function (req, res) {
   });
 
   newCompetition.save(function (err, competition) {
-    res.redirect('/competition');
+    res.redirect('/');
   });
 });
 
