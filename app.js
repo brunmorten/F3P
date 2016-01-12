@@ -8,8 +8,9 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var stormpath = require('express-stormpath');
-var routes = require('./routes/index');
-var competition = require('./routes/competition');
+var indexRoute = require('./routes/index');
+var competitionRoute = require('./routes/competition');
+var flyingScheduleRoute = require('./routes/flyingschedule');
 
 // Create the Express app
 var app = express();
@@ -38,8 +39,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', routes);
-app.use('/competition/', competition);
+app.use('/', indexRoute);
+app.use('/competition/', competitionRoute);
+app.use('/flyingschedule/', flyingScheduleRoute);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

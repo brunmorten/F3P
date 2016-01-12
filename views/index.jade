@@ -1,6 +1,11 @@
 extends layout
 
 block content
-  div(class="list-group")
-    - for competition in competitions
-      a(href=competition.url class="list-group-item") #{competition.name}
+  if (competitions)
+    div(class="list-group")
+      for competition in competitions
+        a(href=competition.url class="list-group-item") #{competition.name}
+  if (flyingSchedules)
+    div(class="list-group")
+      for flyingSchedule in flyingSchedules
+        a(href=flyingSchedule.url class="list-group-item") #{flyingSchedule.name}

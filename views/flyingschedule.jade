@@ -4,16 +4,13 @@ block content
   h1= title
   form(method="post" novalidate role="form")
     fieldset
-    legend Enter competition info
+    legend Flying schedule
     div(class="form-group")
       label(for="name") Name:
-      input(type='text' class="form-control" id="name" name="name" value=competition.name placeholder="Enter competition name" required)
-    div(class="form-group")
-      label(for="club") Club:
-      input(type='text' class="form-control" id="club" name="club" value=competition.club placeholder="Enter club name" required)
+      input(type='text' class="form-control" id="name" name="name" value=flyingSchedule.name placeholder="Enter flying schedule name" required)
     div(class="form-group")
       label(for="description") Description:
-      input(type='textbox' class="form-control" id="description" name="description" value=competition.description placeholder="Enter competition description" required)
+      input(type='textbox' class="form-control" id="description" name="description" value=flyingSchedule.description placeholder="Enter flying schedule description" required)
     div(class="row")
     - if (!isNew)
       div(class="col-sm-6")

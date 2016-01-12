@@ -18,13 +18,13 @@ html( lang="en" )
       +nav("F3P", "dropdown_menu")
         +nav_item( "/", activePage, "Index" ) Home
         +nav_item( "competition", activePage, "Competition" ) Competition
+        +nav_item( "flyingschedule", activePage, "FlyingSchedule" ) Flying schedule
         +nav_item_dropdown( "#" )( label="Dropdown")
           +nav_item( "#" ) Action
           +nav_item( "#" ) Another action
           +nav_item( "#" ) Something else here
           +nav_divider
           +nav_header Nav header
-          +nav_item( "#" ) Separated link
-          +nav_item( "#" ) One more separated link
+          +nav_item( "/Logout" ) Logout
       .jumbotron
         block content

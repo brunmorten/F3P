@@ -1,8 +1,16 @@
 var express = require('express');
 var mongoose = require('mongoose');
 var stormpath = require('express-stormpath');
-var Competition = mongoose.model('competition');
+var CompetitionModel = mongoose.model('competition');
 var router = express.Router();
+
+/* Model
+  name: String,
+	description: String,
+	club: String,
+	director: String,
+	competition_classes: [CompetitionClass],
+*/
 
 /* Helper functions */
 function renderCompetition(res, competition) {
@@ -20,28 +28,23 @@ function renderCompetition(res, competition) {
   res.render("competition", { activePage: 'Competition', competition: competition, deleteAction: deleteAction, saveAction: saveAction, isNew: isNew });
 }
 
-/* GET page. */
+/* GET. */
 router.get("/", stormpath.loginRequired, function (req, res) {
   renderCompetition(res, null);
 });
 
-/* GET page. */
+/* GET by id. */
 router.get("/:id", stormpath.loginRequired, function (req, res) {
-  Competition.findOne({ "_id" : req.params.id }, function (err, competition) {
+  CompetitionModel.findOne({ "_id" : req.params.id }, function (err, competition) {
     renderCompetition(res, competition);
   });
 });
 
+/* PUT by id. */
 router.put("/:id", stormpath.loginRequired, function(req, res) {
-  /*
-  name: String,
-	description: String,
-	club: String,
-	director: String,
-	competition_classes: [CompetitionClass],
-  */
+
   var id = req.params.id;
-  Competition.findOne({_id: id}, function(err, competition) {
+  CompetitionModel.findOne({_id: id}, function(err, competition) {
     
     if (err) {
       return res.status(500).send("500: Internal Server Error");
@@ -71,10 +74,28 @@ router.put("/:id", stormpath.loginRequired, function(req, res) {
   });
 });
 
+/* DELETE by id. */
 router.delete("/:id", stormpath.loginRequired, function(req, res) {
   
   var id = req.params.id;
-  Competition.findOneAndRemove({_id: id}, function(err, competition) {
+  
+  // TODO: Figure out the logic for who can modify and delete competitions
+  CompetitionModel.findOne({_id: id}, function(err, competition) {
+    
+    if (err) {
+      return res.status(500).send("500: Internal Server Error");
+    }
+    
+    if (!competition) {
+      return res.end("No such competition");
+    }
+    
+    if (competition.director != req.user.username) {
+      return res.status(500).send("500: Only the owner can delete this competition");
+    }
+  });
+  
+  CompetitionModel.findOneAndRemove({_id: id}, function(err, competition) {
     
     if (err) {
       return res.status(500).send("500: Internal Server Error");
@@ -88,16 +109,10 @@ router.delete("/:id", stormpath.loginRequired, function(req, res) {
   });
 });
 
-/* POST competition. */
+/* POST. */
 router.post('/', stormpath.loginRequired, function (req, res) {
-  /*
-  name: String,
-	description: String,
-	club: String,
-	director: String,
-	competition_classes: [CompetitionClass],
-  */
-  var newCompetition = new Competition({
+  
+  var newCompetition = new CompetitionModel({
     name: req.body.name,
     description: req.body.description,
     club: req.body.club,
