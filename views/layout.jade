@@ -17,8 +17,8 @@ html( lang="en" )
     .container
       +nav("F3P", "dropdown_menu")
         +nav_item( "/", activePage, "Index" ) Home
-        +nav_item( "competition", activePage, "Competition" ) Competition
-        +nav_item( "flyingschedule", activePage, "FlyingSchedule" ) Flying schedule
+        +nav_item( "/competition", activePage, "Competition" ) Competition
+        +nav_item( "/flyingschedule", activePage, "FlyingSchedule" ) Flying schedule
         +nav_item_dropdown( "#" )( label="Dropdown")
           +nav_item( "#" ) Action
           +nav_item( "#" ) Another action

@@ -49,7 +49,7 @@ router.put("/:id", stormpath.loginRequired, function(req, res) {
     }
     
     if (!flyingSchedule) {
-      return res.end("No such competition");
+      return res.end("No such flying schedule");
     }
     
     flyingSchedule.name = req.body.name ? req.body.name : flyingSchedule.name;
