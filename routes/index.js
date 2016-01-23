@@ -7,44 +7,28 @@ var router = express.Router();
 var CompetitionModel = mongoose.model('competition');
 var FlyingScheduleModel = mongoose.model('flyingschedule');
 
-/* Helper functions */
-function findCompetitionsInfos(username, callback) {
-
-  CompetitionModel.find({ 'director': username }, function (err, competitions) {
-    
-    if (err) {
-      console.error(err);
-    }
-    
-    callback(competitions.map(function(element) {
-      return { url: "/competition/" + element._id, name: element.name, deleteAction: "/competition/" + element._id + "?_method=DELETE" };
-    }));
-  });
-}
-
-function findFlyingScheduleInfos(callback) {
-  
-  FlyingScheduleModel.find({}, function(err, flyingSchedules) {
-    
-    if (err) {
-      console.error(err);
-    }
-    
-    callback(flyingSchedules.map(function(element) {
-      return { url: "/flyingschedule/" + element._id, name: element.name, deleteAction: "/flyingschedule/" + element._id + "?_method=DELETE" };
-    }));
-  });
-}
-
 /* GET home page. */
 router.get('/', stormpath.loginRequired, function (req, res, next) {
   
-  findCompetitionsInfos(req.user.username, function (competitionInfos) {
+  var competitionsQuery = CompetitionModel.find({'director': req.user.username});
+  var flyginSchedulesQuery = FlyingScheduleModel.find({});
+  
+  competitionsQuery.exec().then(function (competitions) {
     
-    findFlyingScheduleInfos(function (flyingScheduleInfos) {
+    // Map the competitions info we need to render
+    var competitionInfos = competitions.map(function(element) {
+      return { url: "/competition/" + element._id, name: element.name, deleteAction: "/competition/" + element._id + "?_method=DELETE" };
+    });
+    
+    flyginSchedulesQuery.exec().then(function (flyingSchedules) {
+      
+      // Map the flying schedules info we need to render
+      var flyingScheduleInfos = flyingSchedules.map(function(element) {
+        return { url: "/flyingschedule/" + element._id, name: element.name, deleteAction: "/flyingschedule/" + element._id + "?_method=DELETE" };
+      });
       
       res.render('index', { activePage: 'Index', competitions: competitionInfos, flyingSchedules: flyingScheduleInfos });
-    });
+    })
   });
 });
 
