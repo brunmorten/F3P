@@ -77,32 +77,14 @@ router.put("/:id", stormpath.loginRequired, function(req, res) {
 /* DELETE by id. */
 router.delete("/:id", stormpath.loginRequired, function(req, res) {
   
-  var id = req.params.id;
-  
-  // TODO: Figure out the logic for who can modify and delete competitions
-  CompetitionModel.findOne({_id: id}, function(err, competition) {
+  CompetitionModel.findOneAndRemove({_id: req.params.id, director: req.user.username }, function(err, competition) {
     
     if (err) {
       return res.status(500).send("500: Internal Server Error");
     }
     
     if (!competition) {
-      return res.end("No such competition");
-    }
-    
-    if (competition.director != req.user.username) {
-      return res.status(500).send("500: Only the owner can delete this competition");
-    }
-  });
-  
-  CompetitionModel.findOneAndRemove({_id: id}, function(err, competition) {
-    
-    if (err) {
-      return res.status(500).send("500: Internal Server Error");
-    }
-    
-    if (!competition) {
-      return res.end('No such competition');
+      return res.end('No such competition, or you are not the owner of this competition');
     }
     
     res.redirect('/');

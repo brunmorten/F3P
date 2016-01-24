@@ -3,9 +3,11 @@ extends layout
 block content
   if (competitions)
     div(class="list-group")
+      h4(class="list-group-item-heading") Competitions
       for competition in competitions
         a(href=competition.url class="list-group-item") #{competition.name}
   if (flyingSchedules)
     div(class="list-group")
+      h4(class="list-group-item-heading") Flying schedules
       for flyingSchedule in flyingSchedules
         a(href=flyingSchedule.url class="list-group-item") #{flyingSchedule.name}
