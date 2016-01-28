@@ -38,12 +38,17 @@
 			"sourceMaps": false
 		},
     {
-			"name": "Debug Mocha Test",
-			"type": "node",
-			"address": "localhost",
-      "request": "attach",
-			"port": 5858,
-			"sourceMaps": false
-		}
+      "request": "launch",
+      "name": "Debug Mocha Test",
+      "type": "node",
+      // Notice, we bypass the launcher and start the test runner directly
+      "program": "node_modules/mocha/bin/_mocha",
+      "stopOnEntry": true,
+      // run the tests in the test folder
+      "args": ["test"],
+      "cwd": ".",
+      "runtimeExecutable": null,
+      "env": { }
+    }
 	]
 }
