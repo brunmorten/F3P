@@ -22,8 +22,12 @@ function renderFlyingSchedule(res, flyingSchedule) {
   var action = isNew ? "/flyingschedule" : "/flyingschedule/" + flyingSchedule.id;
   var deleteAction = action + "?_method=DELETE";
   var saveAction = isNew ? action + "?_method=POST" : action + "?_method=PUT";
+  
+  var addManoeuvreAction = isNew ? "" : "/flyingschedule/" + flyingSchedule.id + "/addManoeuvre";
     
-  res.render("flyingschedule", { activePage: 'FlyingSchedule', flyingSchedule: flyingSchedule, deleteAction: deleteAction, saveAction: saveAction, isNew: isNew });
+  res.render("flyingschedule", { activePage: 'FlyingSchedule', flyingSchedule: flyingSchedule, 
+                                 deleteAction: deleteAction, saveAction: saveAction, 
+                                 isNew: isNew, addManoeuvreAction: addManoeuvreAction});
 }
 
 /* GET. */
@@ -53,7 +57,8 @@ router.put("/:id", stormpath.loginRequired, function(req, res) {
     }
     
     flyingSchedule.name = req.body.name ? req.body.name : flyingSchedule.name;
-    flyingSchedule.description = req.body.descriptionv ? req.body.description : flyingSchedule.description;
+    flyingSchedule.description = req.body.description ? req.body.description : flyingSchedule.description;
+    flyingSchedule.manoeuvres = req.body.manoevres ? req.body.manoevres : flyingSchedule.manoevres;
     
     flyingSchedule.save(function(err, flyingSchedule) {
       
@@ -95,12 +100,49 @@ router.post('/', stormpath.loginRequired, function (req, res) {
   var newFlyingSchedule = new FlyingScheduleModel({
     name: req.body.name,
     description: req.body.description,
-    manoeuvres: [ {} ]
+    manoeuvres: [ req.body.manoevres ]
   });
 
   newFlyingSchedule.save(function (err, flyingSchedule) {
     res.redirect('/');
   });
 });
+
+/* Manoeuvres section
+
+/* PUT by id. 
+router.put("/:id/manoeuvre", stormpath.loginRequired, function(req, res) {
+
+  var id = req.params.id;
+  FlyingScheduleModel.findOne({_id: id}, function(err, flyingSchedule) {
+    
+    if (err) {
+      return res.status(500).send("500: Internal Server Error");
+    }
+    
+    if (!flyingSchedule) {
+      return res.end("No such flying schedule");
+    }
+    
+    flyingSchedule.name = req.body.name ? req.body.name : flyingSchedule.name;
+    flyingSchedule.description = req.body.descriptionv ? req.body.description : flyingSchedule.description;
+    
+    flyingSchedule.save(function(err, flyingSchedule) {
+      
+      if (err) {
+        return res.status(500).send("500: Internal Server Error");
+      }
+      
+      if (!flyingSchedule) {
+        return res.end("No such flying schedule");
+      }
+      
+      res.redirect('/');
+    });
+  });
+});*/
+
+
+
 
 module.exports = router;

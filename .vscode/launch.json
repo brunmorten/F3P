@@ -35,7 +35,15 @@
 			"request": "attach",
 			// Port to attach to.
 			"port": 5858,
-			"sourceMaps": false,
+			"sourceMaps": false
+		},
+    {
+			"name": "Debug Mocha Test",
+			"type": "node",
+			"address": "localhost",
+      "request": "attach",
+			"port": 5858,
+			"sourceMaps": false
 		}
 	]
 }

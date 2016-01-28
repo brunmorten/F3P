@@ -19,3 +19,18 @@ block content
     div(class="col-sm-6")
       button(type="submit" class="btn btn-primary" formaction=saveAction)
         span.glyphicon.glyphicon-ok-circle  Save
+  div
+    form(method="post", action=addManoeuvreAction role="form")
+      fieldset
+      legend Add manoeuvre
+      div(class="form-group")
+        label(for="name") Name:
+        input(type='textbox' class="form-control" id="name" name="name" placeholder="Enter manoeuvre name" required)
+      div(class="form-group")
+        label(for="description") Description:
+        input(type='textbox' class="form-control" id="description" name="description" placeholder="Enter manoeuvre description" required)
+      div(class="form-group")
+        label(for="kFactor") K-Factor:
+        input(type='number' class="form-control" id="kFactor" name="kFactor" placeholder="Enter manoeuvre K-Factor" required)
+      div
+        input(type="submit", value="Add")
