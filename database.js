@@ -6,7 +6,6 @@ var Manoeuvre = new Schema({
 	name: String,
 	description: String,
 	k_factor: Number,
-	score: Number,
 });
 
 var FlyingSchedule = new Schema({

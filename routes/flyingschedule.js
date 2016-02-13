@@ -1,7 +1,8 @@
-var express = require('express');
-var mongoose = require('mongoose');
-var stormpath = require('express-stormpath');
-var FlyingScheduleModel = mongoose.model('flyingschedule');
+var express = require("express");
+var mongoose = require("mongoose");
+var stormpath = require("express-stormpath");
+var FlyingScheduleModel = mongoose.model("flyingschedule");
+var ManoeuvreModel = mongoose.model("manoeuvre");
 var router = express.Router();
 
 /* Model
@@ -23,7 +24,7 @@ function renderFlyingSchedule(res, flyingSchedule) {
   var deleteAction = action + "?_method=DELETE";
   var saveAction = isNew ? action + "?_method=POST" : action + "?_method=PUT";
   
-  var addManoeuvreAction = isNew ? "" : "/flyingschedule/" + flyingSchedule.id + "/addManoeuvre";
+  var addManoeuvreAction = isNew ? "" : "/flyingschedule/" + flyingSchedule.id + "/manoeuvre";
     
   res.render("flyingschedule", { activePage: 'FlyingSchedule', flyingSchedule: flyingSchedule, 
                                  deleteAction: deleteAction, saveAction: saveAction, 
@@ -108,10 +109,10 @@ router.post('/', stormpath.loginRequired, function (req, res) {
   });
 });
 
-/* Manoeuvres section
+/* Manoeuvres section. */
 
-/* PUT by id. 
-router.put("/:id/manoeuvre", stormpath.loginRequired, function(req, res) {
+/* Post manoeuvre. */
+router.post("/:id/manoeuvre", stormpath.loginRequired, function(req, res) {
 
   var id = req.params.id;
   FlyingScheduleModel.findOne({_id: id}, function(err, flyingSchedule) {
@@ -124,8 +125,13 @@ router.put("/:id/manoeuvre", stormpath.loginRequired, function(req, res) {
       return res.end("No such flying schedule");
     }
     
-    flyingSchedule.name = req.body.name ? req.body.name : flyingSchedule.name;
-    flyingSchedule.description = req.body.descriptionv ? req.body.description : flyingSchedule.description;
+    var manoeuvre = new ManoeuvreModel({
+      name: req.body.name,
+      description: req.body.desciption,
+      k_factor: req.body.kfactor,
+    })
+    
+    flyingSchedule.manoeuvres.Add(manoeuvre);
     
     flyingSchedule.save(function(err, flyingSchedule) {
       
@@ -137,12 +143,10 @@ router.put("/:id/manoeuvre", stormpath.loginRequired, function(req, res) {
         return res.end("No such flying schedule");
       }
       
-      res.redirect('/');
+      res.redirect("/" + id);
     });
   });
-});*/
-
-
+});
 
 
 module.exports = router;
