@@ -1,6 +1,10 @@
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 web: nodemon bin/www
+=======
+web: nodemon bin/www
+>>>>>>> Stashed changes
 =======
 web: nodemon bin/www
 >>>>>>> Stashed changes
