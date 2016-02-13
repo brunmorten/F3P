@@ -1,0 +1,1 @@
+web: nodemon --harmony --nocrankshaft --nolazy --debug-brk=15454 bin/www
