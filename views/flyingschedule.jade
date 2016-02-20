@@ -14,38 +14,27 @@ block content
     div(class="row")
     - if (!isNew)
       div(class="col-sm-6")
-        button(type="submit" class="btn btn-default" formaction=deleteAction)
+        button(type="submit" class="btn btn-default" formaction=flyingSchedule.deleteAction)
           span.glyphicon.glyphicon-remove-circle  Delete
     div(class="col-sm-6")
-      button(type="submit" class="btn btn-primary" formaction=saveAction)
+      button(type="submit" class="btn btn-primary" formaction=flyingSchedule.saveAction)
         span.glyphicon.glyphicon-ok-circle  Save
         
   if (flyingSchedule.manoeuvres)
     table(class="table table-bordered table-hover")
       caption Manoeuvres
       tr
+        th #
         th Name
         th Description
         th K-Factor
-      for manoevre in flyingSchedule.manoeuvres
+        th Action
+      each manoevre, index in flyingSchedule.manoeuvres
         tr
-          td
+          th #{index}
+          td 
             a(href=manoevre.url) #{manoevre.name}
           td #{manoevre.description}
           td #{manoevre.k_factor}
-
-  div
-    form(method="post", action=addManoeuvreAction role="form")
-      fieldset
-      legend Add manoeuvre
-      div(class="form-group")
-        label(for="name") Name:
-        input(type='textbox' class="form-control" id="name" name="name" placeholder="Enter manoeuvre name" required)
-      div(class="form-group")
-        label(for="description") Description:
-        input(type='textbox' class="form-control" id="description" name="description" placeholder="Enter manoeuvre description" required)
-      div(class="form-group")
-        label(for="kfactor") K-Factor:
-        input(type='number' class="form-control" id="kfactor" name="kfactor" placeholder="Enter manoeuvre K-Factor" required)
-      div
-        input(type="submit", value="Add")
+          td
+            a(href=manoevre.deleteAction) Delete

@@ -24,11 +24,18 @@ function renderFlyingSchedule(res, flyingSchedule) {
   var deleteAction = action + "?_method=DELETE";
   var saveAction = isNew ? action + "?_method=POST" : action + "?_method=PUT";
   
-  var addManoeuvreAction = isNew ? "" : "/flyingschedule/" + flyingSchedule.id + "/manoeuvre";
+  for (var manoeuvre in flyingSchedule.manoeuvres) {
+    manoeuvre.url = "/manoeuvre/" + flyingSchedule.id + "/" + manoeuvre.id;
+    manoeuvre.deleteAction = "/manoeuvre/" + flyingSchedule.id + "/" + manoeuvre.id + "?_method=DELETE";
+  }
+  
+  // Add the actions to the object to use in the jade template
+  flyingSchedule.addManoeuvreAction = "/manoeuvre/" + flyingSchedule.id;
+  flyingSchedule.deleteAction = deleteAction;
+  flyingSchedule.saveAction = saveAction;
+  flyingSchedule.isNew = isNew;
     
-  res.render("flyingschedule", { activePage: 'FlyingSchedule', flyingSchedule: flyingSchedule, 
-                                 deleteAction: deleteAction, saveAction: saveAction, 
-                                 isNew: isNew, addManoeuvreAction: addManoeuvreAction});
+  res.render("flyingschedule", { activePage: 'FlyingSchedule', flyingSchedule: flyingSchedule});
 }
 
 /* GET. */
@@ -39,6 +46,11 @@ router.get("/", stormpath.loginRequired, function (req, res) {
 /* GET by id. */
 router.get("/:id", stormpath.loginRequired, function (req, res) {
   FlyingScheduleModel.findOne({ "_id" : req.params.id }, function (err, flyingSchedule) {
+    
+    if (err) {
+      return res.status(500).send("500: Internal Server Error");
+    }
+    
     renderFlyingSchedule(res, flyingSchedule);
   });
 });
@@ -100,11 +112,15 @@ router.post('/', stormpath.loginRequired, function (req, res) {
 
   var newFlyingSchedule = new FlyingScheduleModel({
     name: req.body.name,
-    description: req.body.description,
-    manoeuvres: [ req.body.manoevres ]
+    description: req.body.description
   });
 
   newFlyingSchedule.save(function (err, flyingSchedule) {
+    
+    if (err) {
+      return res.status(500).send("500: Internal Server Error");
+    }
+    
     res.redirect('/');
   });
 });
@@ -129,7 +145,7 @@ router.post("/:id/manoeuvre", stormpath.loginRequired, function(req, res) {
       name: req.body.name,
       description: req.body.description,
       k_factor: req.body.kfactor,
-    })
+    });
     
     flyingSchedule.manoeuvres.push(manoeuvre);
     
