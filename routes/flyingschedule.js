@@ -127,11 +127,11 @@ router.post("/:id/manoeuvre", stormpath.loginRequired, function(req, res) {
     
     var manoeuvre = new ManoeuvreModel({
       name: req.body.name,
-      description: req.body.desciption,
+      description: req.body.description,
       k_factor: req.body.kfactor,
     })
     
-    flyingSchedule.manoeuvres.Add(manoeuvre);
+    flyingSchedule.manoeuvres.push(manoeuvre);
     
     flyingSchedule.save(function(err, flyingSchedule) {
       
@@ -143,7 +143,7 @@ router.post("/:id/manoeuvre", stormpath.loginRequired, function(req, res) {
         return res.end("No such flying schedule");
       }
       
-      res.redirect("/" + id);
+      res.redirect("/flyingschedule/" + id);
     });
   });
 });

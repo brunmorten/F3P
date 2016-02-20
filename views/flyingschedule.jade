@@ -19,6 +19,21 @@ block content
     div(class="col-sm-6")
       button(type="submit" class="btn btn-primary" formaction=saveAction)
         span.glyphicon.glyphicon-ok-circle  Save
+        
+  if (flyingSchedule.manoeuvres)
+    table(class="table table-bordered table-hover")
+      caption Manoeuvres
+      tr
+        th Name
+        th Description
+        th K-Factor
+      for manoevre in flyingSchedule.manoeuvres
+        tr
+          td
+            a(href=manoevre.url) #{manoevre.name}
+          td #{manoevre.description}
+          td #{manoevre.k_factor}
+
   div
     form(method="post", action=addManoeuvreAction role="form")
       fieldset

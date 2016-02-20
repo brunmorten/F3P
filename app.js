@@ -15,7 +15,7 @@ var flyingScheduleRoute = require('./routes/flyingschedule');
 // Create the Express app
 var app = express();
 
-var methodOverride = require('method-override')
+var methodOverride = require('method-override');
 app.use(methodOverride('_method'));
 
 // Initialize Stormpath
