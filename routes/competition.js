@@ -18,7 +18,7 @@ function renderCompetition(res, competition) {
   var isNew = !competition;
   
   if (isNew) {
-    competition = {};  
+    competition = new CompetitionModel();
   }
   
   var action = isNew ? "/competition" : "/competition/" + competition.id;
@@ -36,6 +36,11 @@ router.get("/", stormpath.loginRequired, function (req, res) {
 /* GET by id. */
 router.get("/:id", stormpath.loginRequired, function (req, res) {
   CompetitionModel.findOne({ "_id" : req.params.id }, function (err, competition) {
+    
+    if (err) {
+      return res.status(500).send("500: Internal Server Error");
+    }
+    
     renderCompetition(res, competition);
   });
 });
@@ -103,6 +108,11 @@ router.post('/', stormpath.loginRequired, function (req, res) {
   });
 
   newCompetition.save(function (err, competition) {
+    
+    if (err) {
+      return res.status(500).send("500: Internal Server Error");
+    }
+    
     res.redirect('/');
   });
 });

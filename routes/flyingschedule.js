@@ -2,7 +2,6 @@ var express = require("express");
 var mongoose = require("mongoose");
 var stormpath = require("express-stormpath");
 var FlyingScheduleModel = mongoose.model("flyingschedule");
-var ManoeuvreModel = mongoose.model("manoeuvre");
 var router = express.Router();
 
 /* Model
@@ -17,16 +16,19 @@ function renderFlyingSchedule(res, flyingSchedule) {
   var isNew = !flyingSchedule;
   
   if (isNew) {
-    flyingSchedule = {};  
+    flyingSchedule = new FlyingScheduleModel();
   }
   
   var action = isNew ? "/flyingschedule" : "/flyingschedule/" + flyingSchedule.id;
   var deleteAction = action + "?_method=DELETE";
   var saveAction = isNew ? action + "?_method=POST" : action + "?_method=PUT";
   
-  for (var manoeuvre in flyingSchedule.manoeuvres) {
-    manoeuvre.url = "/manoeuvre/" + flyingSchedule.id + "/" + manoeuvre.id;
-    manoeuvre.deleteAction = "/manoeuvre/" + flyingSchedule.id + "/" + manoeuvre.id + "?_method=DELETE";
+  for (var i=0; i<flyingSchedule.manoeuvres.length; i++) {
+    
+    var manoeuvreAction = "/manoeuvre/" + flyingSchedule.id + "/" + flyingSchedule.manoeuvres[i].id;
+    
+    flyingSchedule.manoeuvres[i].url = manoeuvreAction;
+    flyingSchedule.manoeuvres[i].deleteAction = manoeuvreAction + "?_method=DELETE";
   }
   
   // Add the actions to the object to use in the jade template
@@ -71,7 +73,6 @@ router.put("/:id", stormpath.loginRequired, function(req, res) {
     
     flyingSchedule.name = req.body.name ? req.body.name : flyingSchedule.name;
     flyingSchedule.description = req.body.description ? req.body.description : flyingSchedule.description;
-    flyingSchedule.manoeuvres = req.body.manoevres ? req.body.manoevres : flyingSchedule.manoevres;
     
     flyingSchedule.save(function(err, flyingSchedule) {
       
@@ -124,45 +125,5 @@ router.post('/', stormpath.loginRequired, function (req, res) {
     res.redirect('/');
   });
 });
-
-/* Manoeuvres section. */
-
-/* Post manoeuvre. */
-router.post("/:id/manoeuvre", stormpath.loginRequired, function(req, res) {
-
-  var id = req.params.id;
-  FlyingScheduleModel.findOne({_id: id}, function(err, flyingSchedule) {
-    
-    if (err) {
-      return res.status(500).send("500: Internal Server Error");
-    }
-    
-    if (!flyingSchedule) {
-      return res.end("No such flying schedule");
-    }
-    
-    var manoeuvre = new ManoeuvreModel({
-      name: req.body.name,
-      description: req.body.description,
-      k_factor: req.body.kfactor,
-    });
-    
-    flyingSchedule.manoeuvres.push(manoeuvre);
-    
-    flyingSchedule.save(function(err, flyingSchedule) {
-      
-      if (err) {
-        return res.status(500).send("500: Internal Server Error");
-      }
-      
-      if (!flyingSchedule) {
-        return res.end("No such flying schedule");
-      }
-      
-      res.redirect("/flyingschedule/" + id);
-    });
-  });
-});
-
 
 module.exports = router;

@@ -12,7 +12,7 @@ block content
       label(for="description") Description:
       input(type='textbox' class="form-control" id="description" name="description" value=flyingSchedule.description placeholder="Enter flying schedule description" required)
     div(class="row")
-    - if (!isNew)
+    - if (!flyingSchedule.isNew)
       div(class="col-sm-6")
         button(type="submit" class="btn btn-default" formaction=flyingSchedule.deleteAction)
           span.glyphicon.glyphicon-remove-circle  Delete
@@ -29,12 +29,16 @@ block content
         th Description
         th K-Factor
         th Action
-      each manoevre, index in flyingSchedule.manoeuvres
+      each manoeuvre, index in flyingSchedule.manoeuvres
         tr
-          th #{index}
+          th #{index+1}
           td 
-            a(href=manoevre.url) #{manoevre.name}
-          td #{manoevre.description}
-          td #{manoevre.k_factor}
+            a(href=manoeuvre.url) #{manoeuvre.name}
+          td #{manoeuvre.description}
+          td #{manoeuvre.k_factor}
           td
-            a(href=manoevre.deleteAction) Delete
+            a(href=manoeuvre.deleteAction) Delete
+            
+  div
+    a(href=flyingSchedule.addManoeuvreAction class="btn btn-primary" role="button")
+      span.glyphicon.glyphicon-ok-circle  Add manoeuvre

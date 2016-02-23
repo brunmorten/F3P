@@ -11,6 +11,7 @@ var stormpath = require('express-stormpath');
 var indexRoute = require('./routes/index');
 var competitionRoute = require('./routes/competition');
 var flyingScheduleRoute = require('./routes/flyingschedule');
+var manoeuvreRoute = require('./routes/manoeuvre');
 
 // Create the Express app
 var app = express();
@@ -42,6 +43,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRoute);
 app.use('/competition/', competitionRoute);
 app.use('/flyingschedule/', flyingScheduleRoute);
+app.use('/manoeuvre/', manoeuvreRoute);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
