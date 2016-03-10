@@ -118,6 +118,12 @@ $ heroku config:unset NODEMODULESCACHE
 $ npm install -g npm-check-updates
 $ ncu
 ```
+
+## Running bash on Heroku
+```sh
+$ heroku run bash
+```
+
 ## Checking logs
 
 ```sh
