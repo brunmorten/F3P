@@ -105,6 +105,19 @@ $ git push heroku master
 $ heroku open
 ```
 
+## Cleaning Heroku node cache
+```sh
+$ heroku config:set NODEMODULESCACHE=false
+$ git commit -am 'clean npm cache' --allow-empty
+$ git push heroku master
+$ heroku config:unset NODEMODULESCACHE
+```
+
+## Update packages using ncu
+```sh
+$ npm install -g npm-check-updates
+$ ncu
+```
 ## Checking logs
 
 ```sh
