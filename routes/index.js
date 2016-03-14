@@ -8,7 +8,7 @@ var CompetitionModel = mongoose.model('competition');
 var FlyingScheduleModel = mongoose.model('flyingschedule');
 
 /* GET home page. */
-router.get('/', stormpath.getUser, function (req, res, next) {
+router.get('/', stormpath.loginRequired, function (req, res, next) {
   
   var competitionsQuery = CompetitionModel.find({'director': req.user.username});
   var flyginSchedulesQuery = FlyingScheduleModel.find({});
