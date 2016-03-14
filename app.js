@@ -21,11 +21,16 @@ app.use(methodOverride('_method'));
 
 // Initialize Stormpath
 app.use(stormpath.init(app, {
+  website: true, // For websites and Single-page applications
+}));
+
+// Initialize Stormpath
+/*app.use(stormpath.init(app, {
   apiKeyId: process.env.STORMPATH_API_KEY_ID,
   apiKeySecret: process.env.STORMPATH_API_KEY_SECRET,
   secretKey: process.env.STORMPATH_SECRET_KEY,
   application: process.env.STORMPATH_URL
-}));
+}));*/
 
 // View engine setup
 app.set('views', path.join(__dirname, 'views'));
