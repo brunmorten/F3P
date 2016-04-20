@@ -1,0 +1,3 @@
+test:
+  override:
+  - node_modules/.bin/mocha --reporter mocha-circleci-reporter test/*.js --reporter-options mochaFile=./$CIRCLE_TEST_REPORTS/mocha/test-results.xml"
