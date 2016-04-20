@@ -1,4 +1,4 @@
 test:
   override:
   #- mocha -R spec
-  - node_modules/.bin/mocha --reporter mocha-circleci-reporter test/*.js
+  - node_modules/.bin/mocha --reporter mocha-circleci-reporter test/*.js --reporter-options mochaFile=./$CIRCLE_TEST_REPORTS/test-results.xml
