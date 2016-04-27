@@ -1,12 +1,21 @@
 # F3P competition program
 
+## Cloud 9 (c9.io)
+Development is done using C9.io, so all the setup steps are no longer required.
+
+## GitHub
+The code is now on GitHub and linked to the Heroku project. Changes pushed to GitHub will be automatically deployed to Heroku.
+
+## CircleCI
+The code is automatically built and tested on CircleCI when changes are pushed to GitHub
+
 ## Initial setup
 
 Make sure you have [Node.js](http://nodejs.org/) and the [Heroku Toolbelt](https://toolbelt.heroku.com/) installed.
 
 ### Git setup  
 Install [Git](http://git-scm.com/download/win)  
-Make sure to install the git bash.  
+Make sure to install the git bash.
 
 ### Express setup
 
