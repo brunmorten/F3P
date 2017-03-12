@@ -6,8 +6,8 @@ Development is done using C9.io, so all the setup steps are no longer required.
 ## GitHub
 The code is now on GitHub and linked to the Heroku project. Changes pushed to GitHub will be automatically deployed to Heroku.
 
-## CircleCI
-The code is automatically built and tested on CircleCI when changes are pushed to GitHub
+## CircleCI [![Circle CI](https://circleci.com/gh/brunmorten/F3P.svg?style=shield)](https://circleci.com/gh/brunmorten/F3P)
+The code is automatically built and tested on CircleCI when changes are pushed to GitHub.
 
 ## Initial setup
 
