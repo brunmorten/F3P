@@ -1,6 +1,5 @@
 var express = require('express');
 var mongoose = require('mongoose');
-var stormpath = require('express-stormpath');
 var FlyingScheduleModel = mongoose.model("flyingschedule");
 var ManoeuvreModel = mongoose.model("manoeuvre");
 var router = express.Router();
@@ -36,7 +35,7 @@ function renderManoeuvre(res, flyingSchedule, manoeuvre) {
 }
 
 /* GET new for flyingschedule id */
-router.get("/:flyingScheduleId", stormpath.loginRequired, function (req, res) {
+router.get("/:flyingScheduleId", function (req, res) {
   
   var flyingScheduleId = req.params.flyingScheduleId;
   
@@ -55,7 +54,7 @@ router.get("/:flyingScheduleId", stormpath.loginRequired, function (req, res) {
 });
 
 /* GET by flyingschedule id and manoeuvre id. */
-router.get("/:flyingScheduleId/:manoeuvreId", stormpath.loginRequired, function (req, res) {
+router.get("/:flyingScheduleId/:manoeuvreId", function (req, res) {
   
   var flyingScheduleId = req.params.flyingScheduleId;
   var manoeuvreId = req.params.manoeuvreId;
@@ -80,7 +79,7 @@ router.get("/:flyingScheduleId/:manoeuvreId", stormpath.loginRequired, function 
 });
 
 /* PUT by flyingschedule id and manoeuvre id. */
-router.put("/:flyingScheduleId/:manoeuvreId", stormpath.loginRequired, function(req, res) {
+router.put("/:flyingScheduleId/:manoeuvreId", function(req, res) {
   
   var flyingScheduleId = req.params.flyingScheduleId;
   var manoeuvreId = req.params.manoeuvreId;
@@ -116,7 +115,7 @@ router.put("/:flyingScheduleId/:manoeuvreId", stormpath.loginRequired, function(
 });
 
 /* Delete by flyingschedule id and manoeuvre id. */
-router.delete("/:flyingScheduleId/:manoeuvreId", stormpath.loginRequired, function(req, res) {
+router.delete("/:flyingScheduleId/:manoeuvreId", function(req, res) {
   
   var flyingScheduleId = req.params.flyingScheduleId;
   var manoeuvreId = req.params.manoeuvreId;
@@ -145,7 +144,7 @@ router.delete("/:flyingScheduleId/:manoeuvreId", stormpath.loginRequired, functi
 });
 
 /* POST manoeuvre to flyingSchedule. */
-router.post('/:flyingScheduleId', stormpath.loginRequired, function (req, res) {
+router.post('/:flyingScheduleId', function (req, res) {
   
   var flyingScheduleId = req.params.flyingScheduleId;
 

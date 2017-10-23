@@ -1,5 +1,4 @@
 var express = require('express');
-var stormpath = require('express-stormpath');
 var mongoose = require('mongoose');
 
 var router = express.Router();
@@ -8,7 +7,7 @@ var CompetitionModel = mongoose.model('competition');
 var FlyingScheduleModel = mongoose.model('flyingschedule');
 
 /* GET home page. */
-router.get('/', stormpath.loginRequired, function (req, res, next) {
+router.get('/', function (req, res, next) {
   
   var competitionsQuery = CompetitionModel.find({'director': req.user.username});
   var flyginSchedulesQuery = FlyingScheduleModel.find({});

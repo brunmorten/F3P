@@ -62,11 +62,6 @@ Add MongoLab
 $ heroku addons:create mongolab:sandbox
 ```
 
-Add Stormpath
-```sh
-$ heroku addons:create stormpath:developer
-```
-
 ## Running Locally
 
 Create a .env file and put the stormpath and mongolab keys into it.  
@@ -80,10 +75,6 @@ Add it to the .env file in this format:
 
 ```sh
 MONGOLAB_URI=mongodb://...
-STORMPATH_API_KEY_ID=...
-STORMPATH_API_KEY_SECRET=...
-STORMPATH_SECRET_KEY=...
-STORMPATH_URL=...
 ```
 
 Create a Procfile and add the startup code to it:

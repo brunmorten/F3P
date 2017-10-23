@@ -7,30 +7,49 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var stormpath = require('express-stormpath');
 var indexRoute = require('./routes/index');
 var competitionRoute = require('./routes/competition');
 var flyingScheduleRoute = require('./routes/flyingschedule');
 var manoeuvreRoute = require('./routes/manoeuvre');
 
+const passport = require('passport');
+const Auth0Strategy = require('passport-auth0');
+
 // Create the Express app
 var app = express();
 
+// AUTH BLOCK
+// Configure Passport to use Auth0
+const strategy = new Auth0Strategy(
+  {
+    domain: process.env.AUTH0_DOMAIN,
+    clientID: process.env.AUTH0_CLIENT_ID,
+    clientSecret: process.env.AUTH0_CLIENT_SECRET,
+    callbackURL: 'http://localhost:5000/callback'
+  },
+  (accessToken, refreshToken, extraParams, profile, done) => {
+    return done(null, profile);
+  }
+);
+
+passport.use(strategy);
+
+// This can be used to keep a smaller payload
+passport.serializeUser(function(user, done) {
+  done(null, user);
+});
+
+passport.deserializeUser(function(user, done) {
+  done(null, user);
+});
+
+// ...
+app.use(passport.initialize());
+app.use(passport.session());
+// AUTH BLOCK
+
 var methodOverride = require('method-override');
 app.use(methodOverride('_method'));
-
-// Initialize Stormpath
-app.use(stormpath.init(app, {
-  website: true, // For websites and Single-page applications
-}));
-
-// Initialize Stormpath
-/*app.use(stormpath.init(app, {
-  apiKeyId: process.env.STORMPATH_API_KEY_ID,
-  apiKeySecret: process.env.STORMPATH_API_KEY_SECRET,
-  secretKey: process.env.STORMPATH_SECRET_KEY,
-  application: process.env.STORMPATH_URL
-}));*/
 
 // View engine setup
 app.set('views', path.join(__dirname, 'views'));

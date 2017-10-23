@@ -62,7 +62,8 @@ mongoose.model('competition', Competition);
 
 var uristring = process.env.MONGOLAB_URI;
 
-mongoose.connect(uristring, function (err, res) {
+mongoose.connect(uristring, { useMongoClient: true }, function (err, res) {
+  
   if (err) {
     console.log('ERROR connecting to: ' + uristring + '. ' + err);
   } else {

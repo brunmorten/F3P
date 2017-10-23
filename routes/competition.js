@@ -1,6 +1,5 @@
 var express = require('express');
 var mongoose = require('mongoose');
-var stormpath = require('express-stormpath');
 var CompetitionModel = mongoose.model('competition');
 var router = express.Router();
 
@@ -29,12 +28,12 @@ function renderCompetition(res, competition) {
 }
 
 /* GET. */
-router.get("/", stormpath.loginRequired, function (req, res) {
+router.get("/", function (req, res) {
   renderCompetition(res, null);
 });
 
 /* GET by id. */
-router.get("/:id", stormpath.loginRequired, function (req, res) {
+router.get("/:id", function (req, res) {
   CompetitionModel.findOne({ "_id" : req.params.id }, function (err, competition) {
     
     if (err) {
@@ -46,7 +45,7 @@ router.get("/:id", stormpath.loginRequired, function (req, res) {
 });
 
 /* PUT by id. */
-router.put("/:id", stormpath.loginRequired, function(req, res) {
+router.put("/:id", function(req, res) {
 
   var id = req.params.id;
   CompetitionModel.findOne({_id: id}, function(err, competition) {
@@ -80,7 +79,7 @@ router.put("/:id", stormpath.loginRequired, function(req, res) {
 });
 
 /* DELETE by id. */
-router.delete("/:id", stormpath.loginRequired, function(req, res) {
+router.delete("/:id", function(req, res) {
   
   CompetitionModel.findOneAndRemove({_id: req.params.id, director: req.user.username }, function(err, competition) {
     
@@ -97,7 +96,7 @@ router.delete("/:id", stormpath.loginRequired, function(req, res) {
 });
 
 /* POST. */
-router.post('/', stormpath.loginRequired, function (req, res) {
+router.post('/', function (req, res) {
   
   var newCompetition = new CompetitionModel({
     name: req.body.name,

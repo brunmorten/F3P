@@ -1,6 +1,5 @@
 var express = require("express");
 var mongoose = require("mongoose");
-var stormpath = require("express-stormpath");
 var FlyingScheduleModel = mongoose.model("flyingschedule");
 var router = express.Router();
 
@@ -41,12 +40,12 @@ function renderFlyingSchedule(res, flyingSchedule) {
 }
 
 /* GET. */
-router.get("/", stormpath.loginRequired, function (req, res) {
+router.get("/", function (req, res) {
   renderFlyingSchedule(res, null);
 });
 
 /* GET by id. */
-router.get("/:id", stormpath.loginRequired, function (req, res) {
+router.get("/:id", function (req, res) {
   FlyingScheduleModel.findOne({ "_id" : req.params.id }, function (err, flyingSchedule) {
     
     if (err) {
@@ -58,7 +57,7 @@ router.get("/:id", stormpath.loginRequired, function (req, res) {
 });
 
 /* PUT by id. */
-router.put("/:id", stormpath.loginRequired, function(req, res) {
+router.put("/:id", function(req, res) {
 
   var id = req.params.id;
   FlyingScheduleModel.findOne({_id: id}, function(err, flyingSchedule) {
@@ -90,7 +89,7 @@ router.put("/:id", stormpath.loginRequired, function(req, res) {
 });
 
 /* Delete by id. */
-router.delete("/:id", stormpath.loginRequired, function(req, res) {
+router.delete("/:id", function(req, res) {
   
   var id = req.params.id;
   
@@ -109,7 +108,7 @@ router.delete("/:id", stormpath.loginRequired, function(req, res) {
 });
 
 /* POST flying schedule. */
-router.post('/', stormpath.loginRequired, function (req, res) {
+router.post('/', function (req, res) {
 
   var newFlyingSchedule = new FlyingScheduleModel({
     name: req.body.name,
